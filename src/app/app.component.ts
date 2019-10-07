@@ -16,24 +16,13 @@ myForm: FormGroup;
   public product = {};
   public list: any = [];
   submitted = false;
+  public currPage = 1;
+  pageSize = 2;
 
   public constructor(private http: HttpClient,private formBuilder: FormBuilder) { }
 
 
   public ngOnInit() {
-
-    // this is hardcoded.
-    /*this.list = [{
-      productId: '1',
-      productName: 'VIVO',
-      categoryId: 'V10',
-      categoryName: 'Mobile',
-    }, {
-      productId: '1',
-      productName: 'VIVO',
-      categoryId: 'V10',
-      categoryName: 'Mobile'
-    }];*/
 
     this.formInit();
 
@@ -48,7 +37,7 @@ myForm: FormGroup;
       categoryId:    [ , [Validators.required]],
       categoryName:  ['', Validators.required],
     });
-  }
+  };
 
   /** CALL API TO LIST THE PRODCUT */
   public async listProduct() {
@@ -56,9 +45,7 @@ myForm: FormGroup;
 
     const list =  await this.http.get(getUrl).toPromise();
     this.list = list;
-
-    // this.ngOnInit();
-  }
+  };
 
   /** Call API HERE FOR SERVER SIDE */
   public async addProduct() {
@@ -95,6 +82,7 @@ myForm: FormGroup;
     let indexVal = this.myForm.value.index;
     this.list[indexVal] = this.myForm.value;
 
+    this.formInit();
     this.editDeleteAPICall(this.list);
   };
 
@@ -106,7 +94,7 @@ myForm: FormGroup;
       "categoryId"   : item.categoryId,
       "categoryName" : item.categoryName,
     })
-  }
+  };
 
   public async deleteProduct(item) {
     let tempList = [];
@@ -126,5 +114,6 @@ myForm: FormGroup;
     if(resp){
       this.listProduct();
     }
-  }
+  };
+
 }
