@@ -31,7 +31,7 @@ myForm: FormGroup;
 
   formInit(){
     this.myForm = this.formBuilder.group({
-      index      :   [],
+      ID      :      [],
       productName:   ['', Validators.required],
       productDesc:   [''],
       categoryId:    [ , [Validators.required]],
@@ -45,6 +45,11 @@ myForm: FormGroup;
 
     const list =  await this.http.get(getUrl).toPromise();
     this.list = list;
+    _underscore.each(this.list, function(item){
+      let itemIndex = _underscore.findIndex(list, item);
+      item.ID = itemIndex+1;
+
+    })
   };
 
   /** Call API HERE FOR SERVER SIDE */
@@ -54,7 +59,7 @@ myForm: FormGroup;
     if(this.myForm.invalid) {
       return;
     }else{
-      if(!this.myForm.value.index){
+      if(!this.myForm.value.ID){
         this.product = {
           "productName"  : this.myForm.value.productName,
           "productDesc"  : this.myForm.value.productDesc,
@@ -79,7 +84,7 @@ myForm: FormGroup;
   };
 
   public async updateProduct(){
-    let indexVal = this.myForm.value.index;
+    let indexVal = this.myForm.value.ID-1;
     this.list[indexVal] = this.myForm.value;
 
     this.formInit();
@@ -88,7 +93,7 @@ myForm: FormGroup;
 
   public async editProduct(item, i) {
     this.myForm.setValue({
-      index          : i,
+      "ID"          : item.ID,
       "productName"  : item.productName,
       "productDesc"  : item.productDesc,
       "categoryId"   : item.categoryId,
