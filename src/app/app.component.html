@@ -67,7 +67,7 @@
           </tr>
         </tbody>
       </table>
-      <pagination-controls (pageChange)="currPage=$event"></pagination-controls>
+      <pagination-controls (pageChange)="currPage=$event" *ngIf="list.length>pageSize"></pagination-controls>
     </div>
   </div>
 </div>
