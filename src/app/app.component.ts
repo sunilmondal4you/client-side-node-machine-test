@@ -91,7 +91,7 @@ myForm: FormGroup;
     this.editDeleteAPICall(this.list);
   };
 
-  public async editProduct(item, i) {
+  public async editProduct(item) {
     this.myForm.setValue({
       "ID"          : item.ID,
       "productName"  : item.productName,
