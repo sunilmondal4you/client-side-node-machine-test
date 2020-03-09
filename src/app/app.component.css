@@ -3,3 +3,6 @@
     color: #717171;
     cursor: pointer;
 }
+.was-validated .form-control:invalid, .form-control.is-invalid{
+    background-image:none !important;
+}

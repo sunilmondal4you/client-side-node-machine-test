@@ -12,10 +12,10 @@
     <div class="col-md-5 col-sm-12 col-xs-12" >
       <div class="h5"> ADD Product </div>
 
-      <form [formGroup]="myForm" (ngSubmit)="addProduct()">
+      <form name="myForm" role="form" [formGroup]="myForm">
         <div class="form-group">
-          <input type="text" class="form-control" formControlName="productName" placeholder="Enter Product name" [ngClass]="{ 'is-invalid': submitted && f.productName.errors }">
-          <div *ngIf="submitted && f.productName.errors" class="invalid-feedback requireMsg">
+          <input type="text" class="form-control" formControlName="productName" placeholder="Enter Product name" [ngClass]="{ 'is-invalid': f.productName.errors && f.productName.touched }">
+          <div *ngIf="f.productName.errors && f.productName.invalid && (f.productName.dirty || f.productName.touched)" class="invalid-feedback requireMsg">
             <div *ngIf="f.productName.errors.required">Product name is required.</div>
           </div>
         </div>
@@ -23,20 +23,20 @@
           <input type="text" class="form-control" formControlName="productDesc" placeholder="Enter Product Description">
         </div>
         <div class="form-group">
-          <input type="number" class="form-control" formControlName="categoryId" placeholder="Enter Category Id" [ngClass]="{ 'is-invalid': submitted && f.categoryId.errors }">
-          <div *ngIf="submitted && f.categoryId.errors" class="invalid-feedback requireMsg">
+          <input type="number" class="form-control" formControlName="categoryId" placeholder="Enter Category Id" [ngClass]="{ 'is-invalid': f.categoryId.errors && f.categoryId.touched }">
+          <div *ngIf="f.categoryId.errors && f.categoryId.invalid && (f.categoryId.dirty || f.categoryId.touched)" class="invalid-feedback requireMsg">
             <div *ngIf="f.categoryId.errors.required">Category Id is required.</div>
           </div>
         </div>
         <div class="form-group">
-          <input type="text" class="form-control" formControlName="categoryName" placeholder="Enter Category name" [ngClass]="{ 'is-invalid': submitted && f.categoryName.errors }">
-          <div *ngIf="submitted && f.categoryName.errors" class="invalid-feedback requireMsg">
+          <input type="text" class="form-control" formControlName="categoryName" placeholder="Enter Category name" [ngClass]="{ 'is-invalid': f.categoryName.errors && f.categoryName.touched }">
+          <div *ngIf="f.categoryName.errors" class="invalid-feedback requireMsg">
             <div *ngIf="f.categoryName.errors.required">Category name is required.</div>
           </div>
         </div>
         
         <div class="form-group text-center btn-wrp">
-          <button type="button" (click)="addProduct()" class="btn btn-primary">Add Product</button>
+          <button type="submit" (click)="addProduct()" [disabled]="myForm.invalid" class="btn btn-primary">Add Product</button>
         </div>
       </form>
     </div>

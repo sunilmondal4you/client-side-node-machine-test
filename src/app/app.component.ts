@@ -15,9 +15,8 @@ myForm: FormGroup;
   title = 'client-side';
   public product = {};
   public list: any = [];
-  submitted = false;
   public currPage = 1;
-  pageSize = 2;
+  pageSize = 5;
 
   public constructor(private http: HttpClient,private formBuilder: FormBuilder) { }
 
@@ -28,6 +27,8 @@ myForm: FormGroup;
 
     this.listProduct();
   }
+
+  get f() { return this.myForm.controls };
 
   formInit(){
     this.myForm = this.formBuilder.group({
